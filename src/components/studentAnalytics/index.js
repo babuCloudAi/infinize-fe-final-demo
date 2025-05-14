@@ -9,7 +9,7 @@ import CourseModuleCompletion from './courseModuleCompletion';
 import classes from './studentAnalytics.module.css';
 import AssignmentSubmissions from './assignmentSubmissions';
 
-export default function StudentAnalytics() {
+export default function StudentAnalytics({data}) {
     return (
         <Box
             display="flex"
@@ -17,7 +17,7 @@ export default function StudentAnalytics() {
             gap={3}
             className={classes.infinize__analyticsContainer}
         >
-            <CourseModuleCompletion />
+            <CourseModuleCompletion data={data} />
             <Grid container spacing={3}>
                 <Grid size={{xs: 12, md: 5}}>
                     <GradeTrend />

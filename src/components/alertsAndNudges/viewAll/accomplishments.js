@@ -6,7 +6,8 @@ import {
     Chip,
     Checkbox,
     Button,
-    IconButton
+    IconButton,
+    Skeleton
 } from '@mui/material';
 import classes from './viewAllAlerts.module.css';
 import Filter from './filter';
@@ -122,25 +123,23 @@ export default function Accomplishments({accomplishments = []}) {
 
     return (
         <Box mt={3}>
-            {isLoading && <Loader isOpen={isLoading} />}
-            {!isLoading && (
-                <>
-                    <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        width="100%"
-                        px={2}
-                        py={1}
+            <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                width="100%"
+                px={2}
+                py={1}
+            >
+                <Box display="flex" alignItems="center" gap={1.5}>
+                    <Typography
+                        className={classes.infinize__viewAllAlertsTabHeading}
                     >
-                        <Box display="flex" alignItems="center" gap={1.5}>
-                            <Typography
-                                className={
-                                    classes.infinize__viewAllAlertsTabHeading
-                                }
-                            >
-                                Accomplishments {!selectedFilter && '(All)'}
-                            </Typography>
+                        Accomplishments {!selectedFilter && '(All)'}
+                    </Typography>
+                    {!isLoading &&
+                        (!selectedFilter ||
+                            selectedFilter === ALERT_STATUS.UNREAD) && (
                             <Chip
                                 label={`${
                                     accomplishments?.filter(
@@ -150,122 +149,134 @@ export default function Accomplishments({accomplishments = []}) {
                                 size="small"
                                 className={classes.infinize__alertChip}
                             />
-                            {selectedFilter && (
-                                <CustomChip
-                                    label={ALERT_FILTER_LABELS[selectedFilter]}
-                                    size="small"
-                                    onDelete={() => setSelectedFilter(null)}
-                                />
-                            )}
-                        </Box>
-
-                        <Box display="flex" alignItems="center" gap={1.5}>
-                            {selectedAlerts.length > 0 && (
-                                <AlertMenu
-                                    name={'Bulk Actions'}
-                                    onGenerateNudge={handleBulkAction}
-                                    onSendKudos={handleBulkAction}
-                                    alertType={alert.type}
-                                    onDismiss={handleBulkAction}
-                                />
-                            )}
-                            <Filter
-                                alertsList={accomplishments}
-                                onFilteredAlerts={setFilteredAlerts}
-                                onActiveFilter={setSelectedFilter}
-                                selectedFilter={selectedFilter}
-                                isAccomplishments={true}
-                            />
-                        </Box>
-                    </Box>
-
-                    {filteredAlerts?.length === 0 && (
-                        <NoResults
-                            title={
-                                ALERT_NO_RESULT_MESSAGES[selectedFilter]
-                                    ?.title || 'No Accomplishments Yet'
-                            }
-                            description={
-                                ALERT_NO_RESULT_MESSAGES[selectedFilter]
-                                    ?.description ||
-                                'There are no accomplishments at the moment. '
-                            }
+                        )}
+                    {!isLoading && selectedFilter && (
+                        <CustomChip
+                            label={ALERT_FILTER_LABELS[selectedFilter]}
+                            size="small"
+                            onDelete={() => setSelectedFilter(null)}
                         />
                     )}
+                </Box>
 
-                    {filteredAlerts.length > 0 && (
-                        <Box
-                            display="flex"
-                            flexDirection="column"
-                            gap={3}
-                            mt={2}
-                        >
-                            {selectedFilter === ALERT_STATUS.UNREAD && (
-                                <Box display="flex" alignItems="center" px={2}>
-                                    <Checkbox
-                                        checked={paginatedAlerts.every(alert =>
-                                            selectedAlerts.includes(alert.id)
-                                        )}
-                                        onChange={handleSelectAllChange}
+                <Box display="flex" alignItems="center" gap={1.5}>
+                    {selectedAlerts.length > 0 && (
+                        <AlertMenu
+                            name={'Bulk Actions'}
+                            onGenerateNudge={handleBulkAction}
+                            onSendKudos={handleBulkAction}
+                            alertType={alert.type}
+                            onDismiss={handleBulkAction}
+                        />
+                    )}
+                    {!isLoading && (
+                        <Filter
+                            alertsList={accomplishments}
+                            onFilteredAlerts={setFilteredAlerts}
+                            onActiveFilter={setSelectedFilter}
+                            selectedFilter={selectedFilter}
+                            isAccomplishments={true}
+                        />
+                    )}
+                </Box>
+            </Box>
+
+            {filteredAlerts?.length === 0 && (
+                <NoResults
+                    title={
+                        ALERT_NO_RESULT_MESSAGES[selectedFilter]?.title ||
+                        'No Accomplishments Yet'
+                    }
+                    description={
+                        ALERT_NO_RESULT_MESSAGES[selectedFilter]?.description ||
+                        'There are no accomplishments at the moment. '
+                    }
+                />
+            )}
+
+            {filteredAlerts.length > 0 && (
+                <Box display="flex" flexDirection="column" gap={3} mt={2}>
+                    {!isLoading && selectedFilter === ALERT_STATUS.UNREAD && (
+                        <Box display="flex" alignItems="center" px={2}>
+                            <Checkbox
+                                checked={paginatedAlerts.every(alert =>
+                                    selectedAlerts.includes(alert.id)
+                                )}
+                                onChange={handleSelectAllChange}
+                            />
+                            <Typography>Select All</Typography>
+                        </Box>
+                    )}
+
+                    <Box display="flex" flexDirection="column" gap={2}>
+                        {isLoading &&
+                            Array(4)
+                                .fill(0)
+                                .map((_, index) => (
+                                    <Skeleton
+                                        key={`skeleton_${index}`}
+                                        variant="rectangular"
+                                        height={100}
                                     />
-                                    <Typography>Select All</Typography>
+                                ))}
+                    </Box>
+
+                    {paginatedAlerts.map(alert => (
+                        <Box
+                            key={alert.id}
+                            display="flex"
+                            alignItems="flex-start"
+                            width="100%"
+                        >
+                            {!isLoading && (
+                                <AlertsAndNudgesWidget
+                                    alert={alert}
+                                    hasUnreadItems={
+                                        selectedFilter === ALERT_STATUS.UNREAD
+                                    }
+                                    checked={selectedAlerts.includes(alert.id)}
+                                    onChange={() =>
+                                        handleCheckboxChange(alert.id)
+                                    }
+                                />
+                            )}
+                        </Box>
+                    ))}
+
+                    {!isLoading && (
+                        <Box
+                            display={'flex'}
+                            justifyContent={
+                                selectedAlerts.length > 0
+                                    ? 'space-between'
+                                    : 'flex-end'
+                            }
+                        >
+                            {selectedAlerts.length > 0 && (
+                                <Box display="flex" alignItems="center">
+                                    <IconButton
+                                        onClick={() => setSelectedAlerts([])}
+                                    >
+                                        <InfinizeIcon
+                                            icon="solar:close-square-outline"
+                                            width={20}
+                                            height={20}
+                                            style={{display: 'flex'}}
+                                        />
+                                    </IconButton>
+                                    <Typography variant="body2">
+                                        {selectedAlerts.length} Item
+                                        {selectedAlerts.length > 1 ? 's' : ''}
+                                        {/* sapce between itens and select  */}
+                                        {''} Selected
+                                    </Typography>
                                 </Box>
                             )}
-
-                            {paginatedAlerts.map(alert => (
-                                <Box
-                                    key={alert.id}
-                                    display="flex"
-                                    alignItems="flex-start"
-                                    width="100%"
-                                >
-                                    <AlertsAndNudgesWidget
-                                        alert={alert}
-                                        hasUnreadItems={
-                                            selectedFilter ===
-                                            ALERT_STATUS.UNREAD
-                                        }
-                                        checked={selectedAlerts.includes(
-                                            alert.id
-                                        )}
-                                        onChange={() =>
-                                            handleCheckboxChange(alert.id)
-                                        }
-                                    />
-                                </Box>
-                            ))}
-
-                            <Box
-                                display={'flex'}
-                                justifyContent={
-                                    selectedAlerts.length > 0
-                                        ? 'space-between'
-                                        : 'flex-end'
-                                }
-                            >
-                                {selectedAlerts.length > 0 && (
-                                    <Box display="flex" alignItems="center">
-                                        <IconButton
-                                            onClick={() =>
-                                                setSelectedAlerts([])
-                                            }
-                                        >
-                                            <InfinizeIcon
-                                                icon="solar:close-square-outline"
-                                                width={20}
-                                                height={20}
-                                                style={{display: 'flex'}}
-                                            />
-                                        </IconButton>
-                                        <Typography variant="body2">
-                                            {selectedAlerts.length} item
-                                            {selectedAlerts.length > 1
-                                                ? 's'
-                                                : ''}
-                                            selected
-                                        </Typography>
-                                    </Box>
-                                )}
+                            <Box display={'flex'} gap={1} alignItems={'center'}>
+                                <Typography variant="body2">
+                                    Showing 1 to 6 of {filteredAlerts.length}{' '}
+                                    items
+                                </Typography>
                                 <InfinizePagination
                                     count={Math.ceil(
                                         filteredAlerts.length / itemsPerPage
@@ -278,7 +289,7 @@ export default function Accomplishments({accomplishments = []}) {
                             </Box>
                         </Box>
                     )}
-                </>
+                </Box>
             )}
         </Box>
     );

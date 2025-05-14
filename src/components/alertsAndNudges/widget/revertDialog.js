@@ -26,32 +26,29 @@ export default function RevertDialog({isOpen, onClose, onSend}) {
             isOpen={isOpen}
             onClose={onClose}
             actionsLayoutAlignment={'center'}
-            primaryButtonLabel={!isLoading && 'Revert'}
+            primaryButtonLabel={'Revert'}
             onPrimaryButtonClick={onSend}
             contentItemsAlignment={isLoading ? 'center' : 'flex-start'}
         >
-            {isLoading && <AILoader />}
-            {!isLoading && (
-                <Box
-                    display={'flex'}
-                    justifyContent={'center'}
-                    flexDirection={'column'}
-                    width={'100%'}
-                    textAlign={'center'}
-                    gap={2}
-                >
-                    <Box className={classes.infinize__dialoglIcon}>
-                        <InfinizeIcon
-                            icon="jam:alert"
-                            style={{color: '#1C71B5', margin: 'auto'}}
-                        />
-                    </Box>
-                    <Typography className={classes.infinize__dialogTitle}>
-                        Confirm Revert
-                    </Typography>
-                    <Typography>{dismissMessageData.message}</Typography>
+            <Box
+                display={'flex'}
+                justifyContent={'center'}
+                flexDirection={'column'}
+                width={'100%'}
+                textAlign={'center'}
+                gap={2}
+            >
+                <Box className={classes.infinize__dialoglIcon}>
+                    <InfinizeIcon
+                        icon="jam:alert"
+                        style={{color: '#1C71B5', margin: 'auto'}}
+                    />
                 </Box>
-            )}
+                <Typography className={classes.infinize__dialogTitle}>
+                    Confirm Revert
+                </Typography>
+                <Typography>{dismissMessageData.message}</Typography>
+            </Box>
         </InfinizeDialog>
     );
 }

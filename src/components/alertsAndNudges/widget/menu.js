@@ -7,7 +7,6 @@ import {ALERT} from '@/config/constants';
 export default function AlertMenu({
     onGenerateNudge,
     onSendKudos,
-    onDismiss,
     alertType,
     name,
     customClassName = 'menu'
@@ -25,7 +24,6 @@ export default function AlertMenu({
 
     const handleDismiss = () => {
         setAnchorEl(null);
-        onDismiss();
     };
 
     const handleAcknowledge = () => {

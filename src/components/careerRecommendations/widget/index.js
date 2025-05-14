@@ -4,11 +4,12 @@ import {Box, Stack, Skeleton, Button} from '@mui/material';
 import {NoResults, Widget} from '@/components/common';
 import JobData from '@/data/careerRecommendation/careerRecommendations.json';
 import CareersListView from './careersListView';
-import {useParams, useRouter} from 'next/navigation';
+import {useParams, useRouter, usePathname} from 'next/navigation';
 import UploadResumeDialog from './uploadResumeDialog';
 
 export default function CareerRecommendations() {
     const router = useRouter();
+    const pathname = usePathname();
     const params = useParams(); // returns an object of dynamic params
     const studentId = params?.studentId;
     const [expanded, setExpanded] = useState(true);
@@ -16,6 +17,19 @@ export default function CareerRecommendations() {
     const [careerRecommendations, setCareerRecommendations] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [resumeFile, setResumeFile] = useState(null);
+    const [hasCareerRecommendations, setHasCareerRecommendations] = useState(
+        () => {
+            if (typeof window !== 'undefined') {
+                return (
+                    sessionStorage.getItem('hasCareerRecommendations') ===
+                    'true'
+                );
+            }
+            return false;
+        }
+    );
+    const isProfileRoute = pathname === `/student/${studentId}`;
+    const showNoPlan = !hasCareerRecommendations && isProfileRoute;
 
     const handleResumeUpload = file => {
         setResumeFile(file);
@@ -25,19 +39,17 @@ export default function CareerRecommendations() {
         setIsLoading(true); // Show a loading indicator immediately
         // Add a slight delay before navigation to simulate processing
         setTimeout(() => {
-            // Navigate to the career recommendations page and pass a query param indicating file was uploaded
-            router.push(
-                `/student/${studentId}/careerRecommendations?isResumeUploaded =true`
-            );
-        }, 2000);
+            sessionStorage.setItem('uploadedResume', 'true');
+            setIsLoading(false); // Show a loading indicator immediately
+        }, 2000); // Navigate to the career recommendations page and pass a query param indicating file was uploaded
+        router.push(`/student/${studentId}/careerRecommendations`);
     };
 
     // Triggered when the user clicks "Cancel"
     const handleCancle = () => {
+        sessionStorage.setItem('uploadedResume', 'false');
         // Navigate to the same destination but indicate the file was *not* uploaded
-        router.push(
-            `/student/${studentId}/careerRecommendations?isResumeUploaded =false`
-        );
+        router.push(`/student/${studentId}/careerRecommendations`);
     };
 
     useEffect(() => {
@@ -71,7 +83,7 @@ export default function CareerRecommendations() {
                 title="Career Recommendations"
                 actions={
                     !isLoading &&
-                    (careerRecommendations.length > 3 ? (
+                    (!showNoPlan ? (
                         <Stack direction="row" gap={2}>
                             <Button variant="outlined" onClick={handleViewAll}>
                                 View All
@@ -84,24 +96,19 @@ export default function CareerRecommendations() {
                             </Button>
                         </Stack>
                     ) : (
-                        <Button
-                            variant="contained"
-                            onClick={handleGenerateCareer}
-                        >
-                            Generate
-                        </Button>
+                        ''
                     ))
                 }
             >
                 <Box padding={2}>
-                    {isLoading && (
+                    {/* {isLoading && (
                         <Skeleton
                             variant="rectangular"
                             width="100%"
                             height={100}
                         />
-                    )}
-                    {!isLoading && careerRecommendations.length > 0 && (
+                    )} */}
+                    {/* {!isLoading && careerRecommendations.length > 0 && (
                         <CareersListView careers={careerRecommendations} />
                     )}
                     {!isLoading && careerRecommendations.length == 0 && (
@@ -110,6 +117,29 @@ export default function CareerRecommendations() {
                             description="Get started by exploring career paths that align with your interests and goals"
                             buttonLabel="Generate"
                         />
+                    )} */}
+
+                    {isLoading ? (
+                        <Skeleton
+                            variant="rectangular"
+                            width="100%"
+                            height={300}
+                        />
+                    ) : (
+                        <Box>
+                            {!showNoPlan ? (
+                                <CareersListView
+                                    careers={careerRecommendations}
+                                />
+                            ) : (
+                                <NoResults
+                                    title="There are no career recommendations"
+                                    description="Get started by exploring career paths that align with your interests and goals"
+                                    buttonLabel="Generate"
+                                    onClick={handleGenerateCareer}
+                                />
+                            )}
+                        </Box>
                     )}
                     <UploadResumeDialog
                         resumeFile={resumeFile}

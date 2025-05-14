@@ -20,7 +20,8 @@ export function CareerPreferencesForm({onSubmitPreferences}) {
     const searchParams = useSearchParams();
 
     //  TODO  remove this after API integration
-    const isResumeUploaded = searchParams.get('isResumeUploaded ');
+    // const isResumeUploaded = searchParams.get('isResumeUploaded ');
+    const isResumeUploaded = sessionStorage.getItem('uploadedResume');
 
     const toggleIsLoading = () => {
         setIsLoading(prev => !prev);

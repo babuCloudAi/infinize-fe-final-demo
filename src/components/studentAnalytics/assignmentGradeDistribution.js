@@ -10,9 +10,9 @@ export default function AssignmentGradeDistribution() {
     const [assignmentData, setAssignmentData] = useState(chartContent);
 
     const assignmentLabels = {
-        project: 'Project',
+        projects: 'Projects',
         exams: 'Exams',
-        qizzes: 'Qizzes'
+        quizzes: 'Quizzes'
     };
 
     return (

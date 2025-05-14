@@ -16,10 +16,7 @@ export default function AlertsAndNudges() {
     const [alerts, setAlerts] = useState([]);
 
     useEffect(() => {
-        const filtered = nudgeData.studentNudges.filter(alert => !alert.status);
-
-        setAlerts(filtered);
-
+        setAlerts(nudgeData.studentNudges);
         setTimeout(() => setIsLoading(false), 2000); // TODO remove this logic after API integration.
     }, []);
 

@@ -10,12 +10,12 @@ export const getColumns = toggleIsStatsDialogOpen => [
         sortable: false,
         disableColumnMenu: true,
         resizable: false,
-        renderCell: () => {
+        renderCell: params => {
             return (
                 <Box display="flex" alignItems="center" mt={2}>
                     <InfinizeTooltip title={'Student Analytics'}>
                         <IconButton
-                            onClick={toggleIsStatsDialogOpen}
+                            onClick={() => toggleIsStatsDialogOpen(params.row)}
                             className={classes.infinize__statsLink}
                             sx={{color: 'primary.main'}}
                         >

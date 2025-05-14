@@ -20,7 +20,6 @@ import {ALERT, DATE_FORMAT, TIMEZONE, ALERT_STATUS} from '@/config/constants';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import DismissDialog from '../widget/dismissDialog';
 import RevertDialog from '../widget/revertDialog';
 
 dayjs.extend(utc);
@@ -32,7 +31,6 @@ const AlertsAndNudgesWidget = ({alert, checked, onChange, hasUnreadItems}) => {
 
     const [isNudgeDialogOpen, setIsNudgeDialogOpen] = useState(false);
     const [isKudosDialogOpen, setIsKudosDialogOpen] = useState(false);
-    const [isDismissDialogOpen, setIsDismissDialogOpen] = useState(false);
     const [isRevertDialogOpen, setIsRevertDialogOpen] = useState(false);
 
     const toggleIsNudgeDialogOpen = () => {
@@ -42,9 +40,7 @@ const AlertsAndNudgesWidget = ({alert, checked, onChange, hasUnreadItems}) => {
     const toggleIsKudosDialogOpen = () => {
         setIsKudosDialogOpen(prev => !prev);
     };
-    const toggleIsDismissDialogOpen = () => {
-        setIsDismissDialogOpen(prev => !prev);
-    };
+
     const toggleIsRevertDialogOpen = () => {
         setIsRevertDialogOpen(prev => !prev);
     };
@@ -59,11 +55,10 @@ const AlertsAndNudgesWidget = ({alert, checked, onChange, hasUnreadItems}) => {
     const handleKudosSubmit = () => {
         toggleIsKudosDialogOpen();
     };
-    const handleDismissSubmit = () => {
-        setIsRevertDialogOpen();
-    };
-    const handleRevertSubmit = () => {
-        setIsRevertDialogOpen();
+
+    const handleRevertSubmit = e => {
+        e.stopPropagation();
+        toggleIsRevertDialogOpen();
     };
     return (
         <Accordion
@@ -91,6 +86,7 @@ const AlertsAndNudgesWidget = ({alert, checked, onChange, hasUnreadItems}) => {
                             <Checkbox
                                 color="primary"
                                 checked={checked || false}
+                                onClick={e => e.stopPropagation()}
                                 onChange={onChange}
                             />
                         )}
@@ -106,6 +102,7 @@ const AlertsAndNudgesWidget = ({alert, checked, onChange, hasUnreadItems}) => {
                         />
                         <Stack spacing={0.5}>
                             <Typography
+                                fontWeight={!alert?.status ? 600 : 400}
                                 className={classes.infinize__nudgeTitle}
                             >
                                 {alert.title}
@@ -142,11 +139,10 @@ const AlertsAndNudgesWidget = ({alert, checked, onChange, hasUnreadItems}) => {
                                     .format(DATE_FORMAT.LONG)}
                             </Typography>
                         )}
-                        {!alert.actionPerformedOn && (
+                        {!alert.actionPerformedOn && !checked && (
                             <AlertMenu
                                 onGenerateNudge={toggleIsNudgeDialogOpen}
                                 onSendKudos={toggleIsKudosDialogOpen}
-                                onDismiss={toggleIsDismissDialogOpen}
                                 alertType={alert.type}
                                 customClassName="alertsMenu"
                             />
@@ -159,14 +155,14 @@ const AlertsAndNudgesWidget = ({alert, checked, onChange, hasUnreadItems}) => {
                                     alignSelf: 'flex-end',
                                     padding: '8px 16px'
                                 }}
-                                onClick={toggleIsRevertDialogOpen}
+                                onClick={handleRevertSubmit}
                             >
                                 <InfinizeIcon
                                     icon="hugeicons:return-request"
                                     width="18px"
                                     style={{marginRight: '8px'}}
                                 />
-                                Return
+                                Revert
                             </Button>
                         )}
                     </Box>
@@ -191,13 +187,7 @@ const AlertsAndNudgesWidget = ({alert, checked, onChange, hasUnreadItems}) => {
                     onSend={handleKudosSubmit}
                 />
             )}
-            {isDismissDialogOpen && (
-                <DismissDialog
-                    isOpen={isDismissDialogOpen}
-                    onClose={toggleIsDismissDialogOpen}
-                    onSend={handleDismissSubmit}
-                />
-            )}
+
             {isRevertDialogOpen && (
                 <RevertDialog
                     isOpen={isRevertDialogOpen}

@@ -1,7 +1,7 @@
 {
     "data": {
-        "tardy": 50,
-        "present": 30,
-        "absent": 20
+        "present": 76,
+        "tardy": 14,
+        "absent": 10
     }
 }

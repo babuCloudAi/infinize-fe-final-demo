@@ -10,11 +10,7 @@ export default function TaskCard({title, status, daysLeft, progress}) {
             flexDirection={{xs: 'column', md: 'row'}}
             gap={2}
         >
-            <Box width={{xs: '100%', md: '40%'}}>
-                <Typography variant="body1" fontWeight={500}>
-                    {title}
-                </Typography>
-            </Box>
+            <Box width={{xs: '100%', md: '40%'}}>{title}</Box>
 
             <Box
                 width={{xs: '100%', md: '60%'}}

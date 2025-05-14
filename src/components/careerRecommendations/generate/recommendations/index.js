@@ -29,6 +29,7 @@ export default function Recommendations({onRestart}) {
     };
 
     const handleSaveCareer = index => {
+        sessionStorage.setItem('hasCareerRecommendations', 'true');
         setSaveInProgressCareers(prev => [...prev, index]);
         setTimeout(() => {
             setSavedCareers(prev => [...prev, index]);

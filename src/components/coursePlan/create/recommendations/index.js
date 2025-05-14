@@ -384,6 +384,7 @@ export default function CoursePlanRecommendations({onRestart}) {
     };
 
     const handleSave = () => {
+        sessionStorage.setItem('hasCoursePlan', 'true');
         toggleIsSaveDialogOpen();
         toggleIsSaveInProgress(true);
         setTimeout(() => {
@@ -568,25 +569,87 @@ export default function CoursePlanRecommendations({onRestart}) {
         setHighlightedCourse('');
     };
 
+    // const handleCourseConflict = () => {
+    //     if (!conflictCourseInfo) return;
+
+    //     const {course, duplicateResult, termName} = conflictCourseInfo;
+    //     const {subject, courseNumber} = course;
+    //     const {existingTermName} = duplicateResult;
+
+    //     setAllTerms(prevTerms => {
+    //         const updatedTerms = prevTerms.map(term => {
+    //             // Check if the term is the conflicting one (not the current one)
+    //             if (term.name === existingTermName) {
+    //                 // Filter out the duplicate course from the conflicting term
+    //                 const updatedCourses = term.courses.filter(
+    //                     c =>
+    //                         !(
+    //                             c.subject === subject &&
+    //                             c.courseNumber === courseNumber
+    //                         )
+    //                 );
+    //                 const updatedCredits = updatedCourses.reduce(
+    //                     (total, c) => total + c.credits,
+    //                     0
+    //                 );
+
+    //                 return {
+    //                     ...term,
+    //                     courses: updatedCourses,
+    //                     termCredits: updatedCredits
+    //                 };
+    //             }
+
+    //             return term;
+    //         });
+
+    //         // Calculate and update the total credits across all terms
+    //         const newTotalCredits = updatedTerms.reduce(
+    //             (acc, term) => acc + term.termCredits,
+    //             0
+    //         );
+    //         setTotalCredits(newTotalCredits); // Update the totalCredits state
+
+    //         return updatedTerms;
+    //     });
+
+    //     // Remove the conflict banner from the queue
+    //     setBannerQueue(prev =>
+    //         prev.filter(
+    //             banner =>
+    //                 !banner.description.includes(courseNumber) ||
+    //                 !banner.description.includes(subject)
+    //         )
+    //     );
+
+    //     setIsCourseConflict(false);
+    //     setConflictCourseInfo(null);
+    //     setHighlightedCourse('');
+    // };
     const handleCourseConflict = () => {
         if (!conflictCourseInfo) return;
 
-        const {course, duplicateResult, termName} = conflictCourseInfo;
-        const {subject, courseNumber} = course;
+        const {course, duplicateResult} = conflictCourseInfo;
+        const {subject, courseNumber, courseTitle} = course;
         const {existingTermName} = duplicateResult;
 
         setAllTerms(prevTerms => {
-            const updatedTerms = prevTerms.map(term => {
-                // Check if the term is the conflicting one (not the current one)
+            return prevTerms.map(term => {
                 if (term.name === existingTermName) {
-                    // Filter out the duplicate course from the conflicting term
-                    const updatedCourses = term.courses.filter(
-                        c =>
-                            !(
-                                c.subject === subject &&
-                                c.courseNumber === courseNumber
-                            )
-                    );
+                    const updatedCourses = term.courses.filter(c => {
+                        const isConflictCourse =
+                            c.subject === subject &&
+                            c.courseNumber === courseNumber;
+
+                        // If it's a conflict course, keep only the selected course
+                        if (isConflictCourse) {
+                            return c.courseTitle === courseTitle;
+                        }
+
+                        // For non-conflicting courses, keep them as they are
+                        return true;
+                    });
+
                     const updatedCredits = updatedCourses.reduce(
                         (total, c) => total + c.credits,
                         0
@@ -601,18 +664,14 @@ export default function CoursePlanRecommendations({onRestart}) {
 
                 return term;
             });
-
-            // Calculate and update the total credits across all terms
-            const newTotalCredits = updatedTerms.reduce(
-                (acc, term) => acc + term.termCredits,
-                0
-            );
-            setTotalCredits(newTotalCredits); // Update the totalCredits state
-
-            return updatedTerms;
         });
 
-        // Remove the conflict banner from the queue
+        // Recalculate total credits
+        setTotalCredits(prevTerms => {
+            return prevTerms.reduce((acc, term) => acc + term.termCredits, 0);
+        });
+
+        // Remove conflict banner
         setBannerQueue(prev =>
             prev.filter(
                 banner =>

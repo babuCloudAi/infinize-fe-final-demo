@@ -78,10 +78,8 @@
 .infinize__nudgeTitle,
 .infinize__nudgeTitle_bold {
     color: #333;
-    font-family: Poppins;
     font-size: 16px;
     font-style: normal;
-    font-weight: 600 !important;
     line-height: normal;
 }
 .infinize__nudgeAccordian {

@@ -109,8 +109,8 @@ export const ALERT_NO_RESULT_MESSAGES = {
         description: 'Accomplishments  acknowledged will appear here..'
     },
     [ALERT_STATUS.DISMISSED]: {
-        title: 'No Alerts Yet',
-        description: 'There are no alerts at the moment.'
+        title: 'No Dismissed Accomplishments ',
+        description: 'Accomplishments  dismissed will appear here.'
     },
     [ALERT_STATUS.NUDGED]: {
         title: 'No Nudges Yet',

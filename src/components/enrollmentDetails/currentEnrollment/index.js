@@ -9,8 +9,10 @@ export default function CurrentEnrollment() {
     const [isLoading, setIsLoading] = useState(true);
     const [currentEnrollment, setCurrentEnrollment] = useState();
     const [isStatsDialogOpen, setIsStatsDialogOpen] = useState(false);
+    const [selectedRowData, setSelectedRowData] = useState(null);
 
-    const toggleIsStatsDialogOpen = () => {
+    const toggleIsStatsDialogOpen = (rowData = null) => {
+        setSelectedRowData(rowData);
         setIsStatsDialogOpen(prev => !prev);
     };
 
@@ -51,7 +53,7 @@ export default function CurrentEnrollment() {
                 maxWidth="lg"
                 title="Student Analytics"
             >
-                <StudentAnalytics />
+                <StudentAnalytics data={selectedRowData} />
             </InfinizeDialog>
         </Box>
     );
