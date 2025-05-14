@@ -21,7 +21,7 @@ export function InfinizeTable({rows, columns}) {
                         overflowY: 'auto !important',
                         backgroundColor: '#fff !important'
                     },
-                    '& .MuiDataGrid-container--top [role=row]': {
+                    '& .MuiDataGrid-columnHeader': {
                         backgroundColor: '#f5f5f5 !important'
                     },
                     '& .MuiDataGrid-columnSeparator': {

@@ -154,12 +154,17 @@ const AlertsAndNudgesWidget = ({alert, checked, onChange, hasUnreadItems}) => {
                         {alert.status === ALERT_STATUS.DISMISSED && (
                             <Button
                                 variant="contained"
-                                sx={{textTransform: 'none'}}
+                                sx={{
+                                    textTransform: 'none',
+                                    alignSelf: 'flex-end',
+                                    padding: '8px 16px'
+                                }}
                                 onClick={toggleIsRevertDialogOpen}
                             >
                                 <InfinizeIcon
                                     icon="hugeicons:return-request"
                                     width="18px"
+                                    style={{marginRight: '8px'}}
                                 />
                                 Return
                             </Button>

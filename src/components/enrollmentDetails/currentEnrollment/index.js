@@ -49,7 +49,7 @@ export default function CurrentEnrollment() {
                 isOpen={isStatsDialogOpen}
                 onClose={toggleIsStatsDialogOpen}
                 maxWidth="lg"
-                heading="Student Analytics"
+                title="Student Analytics"
             >
                 <StudentAnalytics />
             </InfinizeDialog>

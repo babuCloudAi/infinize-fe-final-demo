@@ -18,7 +18,7 @@ export default function UploadResumeDialog({
         <InfinizeDialog
             isOpen={isOpen}
             onClose={onClose}
-            heading={'Create a personalized career recommendations'}
+            title={'Create a personalized career recommendations'}
             maxWidth={'md'}
         >
             <Box width={'100%'} className={classes.infinize__dialogContent}>

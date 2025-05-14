@@ -28,6 +28,7 @@ export default function AlertsAndNudgesCard({alert}) {
     const theme = useTheme();
     const [isNudgeDialogOpen, setIsNudgeDialogOpen] = useState(false);
     const [isKudosDialogOpen, setIsKudosDialogOpen] = useState(false);
+    const [isDismissDialogOpen, setIsDismissDialogOpen] = useState(false);
     const [isAlertDetailsDialogOpen, setIsAlertDetailsDialogOpen] =
         useState(false);
     const [isDescriptionTruncated, setIsDescriptionTruncated] = useState(false); // <-- for "Read more"
@@ -39,7 +40,9 @@ export default function AlertsAndNudgesCard({alert}) {
     const toggleIsNudgeDialogOpen = () => {
         setIsNudgeDialogOpen(prev => !prev);
     };
-
+    const toggleIsDismissDialogOpen = () => {
+        setIsDismissDialogOpen(prev => !prev);
+    };
     const toggleIsKudosDialogOpen = () => {
         setIsKudosDialogOpen(prev => !prev);
     };
@@ -54,11 +57,16 @@ export default function AlertsAndNudgesCard({alert}) {
 
     // Check if description is actually truncated
     useEffect(() => {
-        if (descriptionRef.current) {
-            const {scrollHeight, clientHeight} = descriptionRef.current;
-            setIsDescriptionTruncated(scrollHeight > clientHeight);
-        }
+        const timeout = setTimeout(() => {
+            if (descriptionRef.current) {
+                const {scrollHeight, clientHeight} = descriptionRef.current;
+                setIsDescriptionTruncated(scrollHeight > clientHeight);
+            }
+        }, 0); // Wait until after paint/layout
+
+        return () => clearTimeout(timeout);
     }, [alert.description]);
+
     return (
         <Box
             className={classes.infinize__widgetCard}
@@ -122,7 +130,7 @@ export default function AlertsAndNudgesCard({alert}) {
                         isOpen={isAlertDetailsDialogOpen}
                         onClose={toggleIsDialogOpen}
                         isClosable={true}
-                        heading={alert.title}
+                        title={alert.title}
                         children={
                             <Typography variant="body1">
                                 {alert.description}
@@ -161,6 +169,7 @@ export default function AlertsAndNudgesCard({alert}) {
                         onGenerateNudge={toggleIsNudgeDialogOpen}
                         onSendKudos={toggleIsKudosDialogOpen}
                         alertType={alert.type}
+                        onDismiss={toggleIsDismissDialogOpen}
                     />
                 )}
                 {alert.status == 'dismissed' && (
@@ -174,6 +183,7 @@ export default function AlertsAndNudgesCard({alert}) {
                         <InfinizeIcon
                             icon="hugeicons:return-request"
                             width="18px"
+                            style={{marginRight: '8px'}}
                         />
                         Return
                     </Button>

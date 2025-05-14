@@ -147,7 +147,7 @@ export default function Alerts({alerts = []}) {
                                     name={'Bulk Actions'}
                                     onGenerateNudge={handleBulkAction}
                                     onSendKudos={handleBulkAction}
-                                    alertType={alert.type}
+                                    alertType={'alert'}
                                     onDismiss={handleBulkAction}
                                 />
                             )}
