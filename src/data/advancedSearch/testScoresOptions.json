@@ -1,0 +1,16 @@
+{
+    "tests": [
+        {
+            "title": "GMAT Quantitative Score (GMATQS)",
+            "code": "GMATQS"
+        },
+        {
+            "title": "GMAT Total Converted Score (GMATCS)",
+            "code": "GMATCS"
+        },
+        {
+            "title": "TOEFL (TOEFL)",
+            "code": "TOEFL"
+        }
+    ]
+}

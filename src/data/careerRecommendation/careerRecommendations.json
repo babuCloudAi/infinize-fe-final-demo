@@ -1,0 +1,70 @@
+{
+    "recommendations": [
+        {
+            "title": "Criminal Investigator",
+            "description": "Conduct investigations, gather evidence, and interview witnesses to solve crimes while working with law enforcement agencies.",
+            "salary": "$65,000 - $95,000",
+            "duration": "Per annum",
+            "match": "96%",
+            "banner": "/img/careers/job.jpg",
+            "roles": [
+                "Conduct investigations, analyze crime scenes, and collect evidence.",
+                "Prepare case reports and testify in court.",
+                "Work with law enforcement and legal professionals.",
+                "Monitor criminal activities and assess security threats.",
+                "Use forensic tools, databases, and surveillance methods in investigations.",
+                "Interview witnesses, victims, and suspects to gather crucial information and uncover case details."
+            ]
+        },
+        {
+            "title": "Forensic Analyst",
+            "description": "Analyze crime scene evidence, DNA, and digital forensics to assist in solving cases. Work in laboratories or with law enforcement.",
+            "salary": "$70,000 - $85,000",
+            "duration": "Per annum",
+            "match": "92%",
+            "banner": "/img/careers/job.jpg",
+            "roles": [
+                "Create technical documentation, training materials, and user guides for IT teams.",
+                "Design and optimize enterprise software, cloud infrastructure, and IT workflows.",
+                "Ensure IT security, compliance, and risk management across business systems.",
+                "Analyze and assess business and IT needs to recommend technology solutions.",
+                "Design and optimize enterprise software, cloud infrastructure, and IT workflows.",
+                "Develop data-driven reports to support decision-making and automation",
+                "Collaborate with developers, analysts, and stakeholders to improve systems."
+            ]
+        },
+        {
+            "title": "Intelligence Analyst",
+            "description": "Assess threats, analyze criminal data, and support national security or law enforcement agencies with intelligence reports.",
+            "salary": "$75,000 - $95,000",
+            "duration": "Per annum",
+            "match": "88%",
+            "banner": "/img/careers/job.jpg",
+            "roles": [
+                "Develop data-driven reports to support decision-making and automation",
+                "Collaborate with developers, analysts, and stakeholders to improve systems.",
+                "Analyze and assess business and IT needs to recommend technology solutions.",
+                "Design and optimize enterprise software, cloud infrastructure, and IT workflows.",
+                "Design and optimize enterprise software, cloud infrastructure, and IT workflows.",
+                "Ensure IT security, compliance, and risk management across business systems."
+            ]
+        },
+        {
+            "title": "Corrections Officer",
+            "description": "Supervise offenders, ensure institutional security, and assist with rehabilitation programs in correctional facilities.",
+            "salary": "$55,000 - $70,000",
+            "duration": "Per annum",
+            "match": "85%",
+            "banner": "/img/careers/job.jpg",
+            "roles": [
+                "Analyze and assess business and IT needs to recommend technology solutions.",
+                "Design and optimize enterprise software, cloud infrastructure, and IT workflows.",
+                "Design and optimize enterprise software, cloud infrastructure, and IT workflows.",
+                "Ensure IT security, compliance, and risk management across business systems.",
+                "Create technical documentation, training materials, and user guides for IT teams.",
+                "Develop data-driven reports to support decision-making and automation",
+                "Collaborate with developers, analysts, and stakeholders to improve systems."
+            ]
+        }
+    ]
+}

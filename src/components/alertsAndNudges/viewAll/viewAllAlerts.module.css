@@ -1,0 +1,92 @@
+.infinize__viewAllAlertsContainer {
+    border-radius: 12px;
+    border: 1px solid #ebf2fd;
+    background: #fff;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.06);
+    padding: 24px;
+}
+.infinize__viewAllAlertsTabsBorder {
+    border-bottom: 1px solid #ddd;
+}
+
+.infinize__viewAllAlertsTab {
+    text-transform: none !important;
+    color: #808a98;
+    background: #f7f7f7 !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 20px !important; /* 125% */
+}
+
+.infinize__viewAllAlertsTabHeading {
+    color: #1c71b5;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+}
+
+.infinize__viewAllAlertsTabPagination {
+    display: flex;
+}
+
+.infinize__nudgesCards {
+    width: 100%;
+    gap: 15px;
+    padding: 0 20px 20px;
+}
+.infinize__alertFilter {
+    border-radius: 8px !important;
+    border: 1px solid #c3d3e2 !important;
+    color: #333333 !important;
+    padding: 8px 15px !important;
+}
+
+.infinize__alertChip {
+    color: #1c71b5 !important;
+    border-radius: 4px !important;
+    background: #d0e8fb !important;
+}
+.noResults {
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.noResults h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 40px 0 10px;
+}
+
+.noResults p {
+    color: #333;
+    font-size: 14px;
+    font-weight: 400;
+}
+.infinize__nudgeIcon {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #e9eff3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infinize__nudgeTitle,
+.infinize__nudgeTitle_bold {
+    color: #333;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600 !important;
+    line-height: normal;
+}
+.infinize__nudgeAccordian {
+    border-radius: 8px;
+    border: 1px solid #ebf2fd !important;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.06) !important;
+    width: 100%;
+}

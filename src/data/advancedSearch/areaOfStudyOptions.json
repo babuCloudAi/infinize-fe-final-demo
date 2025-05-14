@@ -1,0 +1,39 @@
+{
+    "semester": ["Fall", "Spring", "Summer", "Winter"],
+    "college": [
+        "Engineering",
+        "Business",
+        "Arts",
+        "Sciences",
+        "Education",
+        "Law"
+    ],
+    "department": [
+        "Computer Science",
+        "Mechanical Engineering",
+        "Psychology",
+        "Marketing",
+        "Finance"
+    ],
+    "level": ["Graduate", "Non Credit", "Undergraduate"],
+    "degree": ["BS", "BA", "MS", "MBA", "PhD", "JD"],
+    "major": [
+        "Computer Science",
+        "Mechanical Engineering",
+        "Business Administration",
+        "Psychology"
+    ],
+    "minor": [
+        "Computer Science",
+        "Mechanical Engineering",
+        "Business Administration",
+        "Psychology"
+    ],
+    "program": ["Full-Time", "Part-Time", "Online"],
+    "concentration": [
+        "AI and Machine Learning",
+        "Thermodynamics",
+        "Finance Analytics",
+        "Cognitive Psychology"
+    ]
+}

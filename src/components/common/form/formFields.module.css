@@ -1,0 +1,99 @@
+.infinize__selectlanMenuItem {
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.infinize__selectlanMenuItemSelected {
+    background-color: #bbdefb;
+}
+
+.infinize__selectlanMenuItem:hover {
+    background-color: #90caf9;
+}
+
+.infinize__textArea__wordCount {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    font-size: 12px !important;
+    color: #acacac !important;
+}
+
+.infinize__fileInputCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    box-shadow: none;
+    margin-top: 16px;
+    border-radius: 6px;
+    border: 1px solid #cacaca;
+    background: #fff;
+    box-shadow: none !important;
+}
+
+.infinize__fileInputCardContent {
+    display: flex;
+    align-items: flex-start;
+}
+
+.infinize__fileInputFileDetails {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.infinize__fileInputFileSize {
+    font-size: 12px;
+    color: #555;
+}
+
+.infinize__fileInputDropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px dashed #ccc;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+.infinize__fileInputUploadText {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px !important;
+}
+
+.infinize__fileInputErrorMessage {
+    color: red;
+    margin-top: 8px !important;
+    text-align: center;
+}
+
+.infinize__fileInputEditButton {
+    color: #353535;
+}
+
+.infinize__addButton {
+    padding: 6px 24px !important;
+    align-self: flex-start;
+    text-transform: none !important;
+}
+
+.infinize__filePreview {
+    cursor: pointer;
+    text-decoration: none;
+    color: #1c71b5;
+}
+
+.infinize__radioOptionsLabel {
+    color: #231f20 !important;
+    font-weight: 500 !important;
+    padding-bottom: 10px !important;
+}
+
+.infinize__fileUploadIcon {
+    border-radius: 50px;
+    background: #f5f5f5;
+}

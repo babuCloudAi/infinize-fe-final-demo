@@ -1,0 +1,35 @@
+{
+    "raceEthnicity": [
+        "Asian",
+        "Black",
+        "White",
+        "Hispanic",
+        "Native American",
+        "Pacific Islander",
+        "Other"
+    ],
+    "cohort": [
+        "Fall 2025",
+        "Spring 2025",
+        "Summer 2025",
+        "Fall 2024",
+        "Spring 2024",
+        "Summer 2024",
+        "Fall 2023",
+        "Spring 2023",
+        "Summer 2023"
+    ],
+    "studentType": [
+        "Undergraduate",
+        "Graduate",
+        "Transfer",
+        "International",
+        "Non-Degree Seeking"
+    ],
+    "gender": [
+        "Male",
+        "Female",
+        "Other",
+        "Prefer not to say"
+    ]
+}

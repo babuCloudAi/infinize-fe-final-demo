@@ -1,0 +1,86 @@
+{
+    "careerRecommendations": {
+        "Knowledge": {
+            "Law and Criminal Justice": [
+                "Criminal law and legal procedures",
+                "Courtroom protocols and case prep"
+            ],
+            "Forensics & Investigation": [
+                "Crime scene analysis and evidence",
+                "Interrogation techniques"
+            ],
+            "Security & Intelligence": [
+                "Risk assessment and threat analysis",
+                "Counterterrorism and homeland security strategies"
+            ]
+        },
+        "Skills": {
+            "Basic Skills": [
+                "Conducting legal research and case analysis",
+                "Interviewing witnesses and suspects"
+            ],
+            "Technical Skills": [
+                "Crime mapping and predictive policing (GIS, IBM i2)",
+                "Digital forensics tools (EnCase, FTK, Cellebrite)",
+                "Firearm, ballistics, and fingerprint analysis"
+            ]
+        },
+        "Abilities": {
+            "Critical Thinking": [
+                "Analyze cases, evidence, and suspects logically."
+            ],
+            "Communication": [
+                "Report writing, courtroom testimony, and public speaking."
+            ],
+            "Problem-Solving": [
+                "Assess crime patterns and develop investigative strategies",
+                "Ensure accuracy in reports handling."
+            ]
+        },
+        "Personality": {
+            "": "Examine, analyze, and assess crime-related information to ensure justice, maintain security.",
+            "They do well at jobs that need:": [
+                "Critical Thinking",
+                "Attention to Detail",
+                "Ethical Judgment",
+                "Strong Communication",
+                "Problem-Solving",
+                "Resilience"
+            ]
+        },
+        "Technology": [
+            "Crime analysis software (GIS, IBM i2 Analyst's Notebook)",
+            "Surveillance tools and digital forensics (CCTV, EnCase, Cellebrite)",
+            "Criminal databases (NCIC, AFIS, CODIS)",
+            "Body-worn cameras and forensic imaging",
+            "Monitors suspect movements and gathers location-based evidence"
+        ],
+        "Job Outlook": {
+            "Status": "Bright",
+            "Description": "New job opportunities are very likely in the future",
+            "Salary": {
+                "Median": "$79,440",
+                "Min": "$50,440",
+                "Max": "$137,440"
+            }
+        },
+        "Skills Gap": [
+            "Limited Crime Scene Investigation Experience",
+            "Insufficient Digital Forensics Knowledge",
+            "Minimal Practical, Hands-On Experience Data & Intelligence Gathering",
+            "Project Management and Case Organization"
+        ],
+        "Recommendations": {
+            "Certification:": [
+                "Certified Criminal Investigator (CCI)",
+                "Crime Scene Investigation Certification",
+                " Digital Forensics Examiner"
+            ],
+            "Soft Skills:": [
+                "Ethical judgment and integrity",
+                "Conflict resolution and negotiation",
+                "Public speaking and legal writing"
+            ]
+        }
+    }
+}

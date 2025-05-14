@@ -1,0 +1,29 @@
+{
+    "studentNotes": [
+        {
+            "title": "Spring intervention",
+            "date": "March 06, 2025.",
+            "createdBy": " Ava Reynolds",
+            "description": "The student has shown consistent attendance issues in Criminal Justice System (CRJS 125). Advised them to meet with the instructor to discuss possible solutions.",
+            "attachment": "grades.pdf"
+        },
+        {
+            "title": "Early alert",
+            "date": "February  12, 2025.",
+            "createdBy": " Ava Reynolds",
+            "description": "The student’s performance in  CRJS 105 has dropped below 65%. Recommended attending office hours  for additional help."
+        },
+        {
+            "title": "Registration Assistance ",
+            "date": "January 10, 2025.",
+            "createdBy": " Ava Reynolds",
+            "description": "A registration hold has been placed on the student’s account due to missing health immunization records. The student must submit the required documents."
+        },
+        {
+            "title": "Upcoming Course Registration Demo",
+            "date": "January 10, 2025.",
+            "createdBy": " Ava Reynolds",
+            "description": "The student has not yet registered for courses for the Fall 2025 semester. The registration deadline is approaching, and failure to enroll ."
+        }
+    ]
+}

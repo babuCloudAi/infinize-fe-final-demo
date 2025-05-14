@@ -1,0 +1,14 @@
+{
+    "Courses": [
+        {
+            "courseTitle": "Computer Science",
+            "courseNumber": 365,
+            "subject": "AAST"
+        },
+        {
+            "courseTitle": "Computer Science AAS",
+            "courseNumber": 364,
+            "subject": "AAS"
+        }
+    ]
+}

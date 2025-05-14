@@ -1,0 +1,13 @@
+{
+    "semester": [
+        "Fall",
+        "Spring",
+        "Summer"
+    ],
+    "academicStanding": [
+        "Good Standing",
+        "Probation",
+        "Suspension",
+        "Dismissal"
+    ]
+}

@@ -1,0 +1,41 @@
+.infinize__nudgesCards {
+    width: 100%;
+    gap: 8px;
+    padding: 0 20px 20px;
+}
+
+.infinize__alertDescription {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    display: box;
+    box-orient: vertical;
+    line-clamp: 2;
+}
+
+.infinize__dialoglIcon {
+    border-radius: 50px;
+    background: #d2ebff;
+    width: 74px;
+    height: 74px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.infinize__dialogTitle {
+    color: #1c71b5;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+}
+.infinize__nudgesChip {
+    border-radius: 4px !important;
+    border: none !important;
+    background-color: #d6eaf9 !important;
+    color: #1c71b5 !important;
+}

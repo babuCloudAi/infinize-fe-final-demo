@@ -1,0 +1,285 @@
+'use client';
+import React, {useState, useEffect} from 'react';
+import {
+    Box,
+    Typography,
+    Chip,
+    Checkbox,
+    Button,
+    IconButton
+} from '@mui/material';
+import classes from './viewAllAlerts.module.css';
+import Filter from './filter';
+import {
+    CustomChip,
+    InfinizeIcon,
+    InfinizePagination,
+    Loader,
+    NoResults
+} from '@/components/common';
+import {
+    ALERT_STATUS,
+    ALERT_FILTER_LABELS,
+    ALERT_NO_RESULT_MESSAGES
+} from '@/config/constants';
+import AlertsAndNudgesWidget from './alertsAndNudgesWidget';
+import AlertMenu from '../widget/menu';
+
+export default function Accomplishments({accomplishments = []}) {
+    const [alertsWithIds, setAlertsWithIds] = useState([]);
+    const [filteredAlerts, setFilteredAlerts] = useState([]);
+    const [selectedFilter, setSelectedFilter] = useState(ALERT_STATUS.UNREAD);
+    const [selectedAlerts, setSelectedAlerts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const [isNudgeDialogOpen, setIsNudgeDialogOpen] = useState(false);
+    const [isKudosDialogOpen, setIsKudosDialogOpen] = useState(false);
+
+    // Utility to assign IDs to alerts
+    function assignAlertIds(accomplishments) {
+        return accomplishments.map((alert, index) => ({
+            ...alert,
+            id:
+                alert.id ||
+                `${alert.type}-${new Date(alert.date).getTime()}-${index}`
+        }));
+    }
+
+    const toggleIsNudgeDialogOpen = () => {
+        setIsNudgeDialogOpen(prev => !prev);
+    };
+
+    const toggleIsKudosDialogOpen = () => {
+        setIsKudosDialogOpen(prev => !prev);
+    };
+
+    useEffect(() => {
+        const alertsWithIds = assignAlertIds(accomplishments);
+        setAlertsWithIds(alertsWithIds);
+
+        const filtered = alertsWithIds.filter(alert => {
+            if (!selectedFilter) return true;
+            if (selectedFilter === ALERT_STATUS.UNREAD) {
+                return !alert.status || alert.status === ALERT_STATUS.UNREAD;
+            }
+            return alert.status === selectedFilter;
+        });
+
+        setFilteredAlerts(filtered);
+        setCurrentPage(1);
+        setSelectedAlerts([]); // Clear selection on filter change
+    }, [selectedFilter, accomplishments]);
+
+    const itemsPerPage = 9;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedAlerts = filteredAlerts.slice(startIndex, endIndex);
+
+    const handlePageChange = (event, newPage) => {
+        setCurrentPage(newPage);
+        setSelectedAlerts([]); // Clear selection on page change
+    };
+
+    const handleBulkAction = () => {
+        const selectedAlertObjects = alertsWithIds.filter(alert =>
+            selectedAlerts.includes(alert.id)
+        );
+        console.log('Performing bulk action for:', selectedAlertObjects);
+        // TODO: Send selectedAlertObjects to your API
+    };
+
+    const handleSelectAllChange = () => {
+        const allIdsOnPage = paginatedAlerts.map(alert => alert.id);
+        const allSelected = allIdsOnPage.every(id =>
+            selectedAlerts.includes(id)
+        );
+
+        setSelectedAlerts(
+            allSelected
+                ? selectedAlerts.filter(id => !allIdsOnPage.includes(id)) // Deselect all
+                : [...new Set([...selectedAlerts, ...allIdsOnPage])] // Select all
+        );
+    };
+
+    const handleCheckboxChange = alertId => {
+        setSelectedAlerts(prev =>
+            prev.includes(alertId)
+                ? prev.filter(id => id !== alertId)
+                : [...prev, alertId]
+        );
+    };
+
+    const toggleIsLoading = isLoading => {
+        setIsLoading(isLoading);
+    };
+
+    useEffect(() => {
+        setTimeout(() => {
+            toggleIsLoading(false);
+        }, 2000); // TODO: Replace logic once the API is added
+    }, []);
+
+    return (
+        <Box mt={3}>
+            {isLoading && <Loader isOpen={isLoading} />}
+            {!isLoading && (
+                <>
+                    <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        width="100%"
+                        px={2}
+                        py={1}
+                    >
+                        <Box display="flex" alignItems="center" gap={1.5}>
+                            <Typography
+                                className={
+                                    classes.infinize__viewAllAlertsTabHeading
+                                }
+                            >
+                                Accomplishments {!selectedFilter && '(All)'}
+                            </Typography>
+                            <Chip
+                                label={`${
+                                    accomplishments?.filter(
+                                        alert => !alert.status
+                                    ).length
+                                } Unread`}
+                                size="small"
+                                className={classes.infinize__alertChip}
+                            />
+                            {selectedFilter && (
+                                <CustomChip
+                                    label={ALERT_FILTER_LABELS[selectedFilter]}
+                                    size="small"
+                                    onDelete={() => setSelectedFilter(null)}
+                                />
+                            )}
+                        </Box>
+
+                        <Box display="flex" alignItems="center" gap={1.5}>
+                            {selectedAlerts.length > 0 && (
+                                <AlertMenu
+                                    name={'Bulk Actions'}
+                                    onGenerateNudge={handleBulkAction}
+                                    onSendKudos={handleBulkAction}
+                                    alertType={alert.type}
+                                    onDismiss={handleBulkAction}
+                                />
+                            )}
+                            <Filter
+                                alertsList={accomplishments}
+                                onFilteredAlerts={setFilteredAlerts}
+                                onActiveFilter={setSelectedFilter}
+                                selectedFilter={selectedFilter}
+                                isAccomplishments={true}
+                            />
+                        </Box>
+                    </Box>
+
+                    {filteredAlerts?.length === 0 && (
+                        <NoResults
+                            title={
+                                ALERT_NO_RESULT_MESSAGES[selectedFilter]
+                                    ?.title || 'No Accomplishments Yet'
+                            }
+                            description={
+                                ALERT_NO_RESULT_MESSAGES[selectedFilter]
+                                    ?.description ||
+                                'There are no accomplishments at the moment. '
+                            }
+                        />
+                    )}
+
+                    {filteredAlerts.length > 0 && (
+                        <Box
+                            display="flex"
+                            flexDirection="column"
+                            gap={3}
+                            mt={2}
+                        >
+                            {selectedFilter === ALERT_STATUS.UNREAD && (
+                                <Box display="flex" alignItems="center" px={2}>
+                                    <Checkbox
+                                        checked={paginatedAlerts.every(alert =>
+                                            selectedAlerts.includes(alert.id)
+                                        )}
+                                        onChange={handleSelectAllChange}
+                                    />
+                                    <Typography>Select All</Typography>
+                                </Box>
+                            )}
+
+                            {paginatedAlerts.map(alert => (
+                                <Box
+                                    key={alert.id}
+                                    display="flex"
+                                    alignItems="flex-start"
+                                    width="100%"
+                                >
+                                    <AlertsAndNudgesWidget
+                                        alert={alert}
+                                        hasUnreadItems={
+                                            selectedFilter ===
+                                            ALERT_STATUS.UNREAD
+                                        }
+                                        checked={selectedAlerts.includes(
+                                            alert.id
+                                        )}
+                                        onChange={() =>
+                                            handleCheckboxChange(alert.id)
+                                        }
+                                    />
+                                </Box>
+                            ))}
+
+                            <Box
+                                display={'flex'}
+                                justifyContent={
+                                    selectedAlerts.length > 0
+                                        ? 'space-between'
+                                        : 'flex-end'
+                                }
+                            >
+                                {selectedAlerts.length > 0 && (
+                                    <Box display="flex" alignItems="center">
+                                        <IconButton
+                                            onClick={() =>
+                                                setSelectedAlerts([])
+                                            }
+                                        >
+                                            <InfinizeIcon
+                                                icon="solar:close-square-outline"
+                                                width={20}
+                                                height={20}
+                                                style={{display: 'flex'}}
+                                            />
+                                        </IconButton>
+                                        <Typography variant="body2">
+                                            {selectedAlerts.length} item
+                                            {selectedAlerts.length > 1
+                                                ? 's'
+                                                : ''}
+                                            selected
+                                        </Typography>
+                                    </Box>
+                                )}
+                                <InfinizePagination
+                                    count={Math.ceil(
+                                        filteredAlerts.length / itemsPerPage
+                                    )}
+                                    page={currentPage}
+                                    onPageChange={handlePageChange}
+                                    variant="outlined"
+                                    shape="rounded"
+                                />
+                            </Box>
+                        </Box>
+                    )}
+                </>
+            )}
+        </Box>
+    );
+}

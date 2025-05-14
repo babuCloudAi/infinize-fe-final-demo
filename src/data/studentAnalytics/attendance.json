@@ -1,0 +1,7 @@
+{
+    "data": {
+        "tardy": 50,
+        "present": 30,
+        "absent": 20
+    }
+}
