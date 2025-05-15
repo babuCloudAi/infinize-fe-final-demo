@@ -329,6 +329,7 @@ export default function CoursePlanRecommendations({onRestart}) {
                             });
 
                             return {
+                                conflictingCourse: existingCourse,
                                 conflict: true,
                                 conflictCourseName: `${existingCourse.subject} - ${existingCourse.courseNumber}  ${existingCourse.courseTitle}`,
                                 conflictSchedule: `${existingSchedule.days} ${existingSchedule.time}`
@@ -506,12 +507,12 @@ export default function CoursePlanRecommendations({onRestart}) {
     const handleCourseScheduleConflict = () => {
         if (!scheduleCourseInfo) return;
 
-        const {course, otherCourses} = scheduleCourseInfo;
-        const {subject, courseNumber} = course;
+        const {scheduleConflict} = scheduleCourseInfo;
+        const {subject, courseNumber} = scheduleConflict.conflictingCourse;
 
         setAllTerms(prevTerms => {
             const updatedTerms = prevTerms.map(term => {
-                // Check if the term contains the selected course
+                // Check if the term contains the course to be deleted
                 if (
                     term.courses.some(
                         c =>
@@ -519,15 +520,13 @@ export default function CoursePlanRecommendations({onRestart}) {
                             c.courseNumber === courseNumber
                     )
                 ) {
-                    // Filter out the conflicting courses
-                    const updatedCourses = term.courses.filter(c =>
-                        c.subject === subject && c.courseNumber === courseNumber
-                            ? true // Keep the selected course
-                            : !otherCourses.some(
-                                  oc =>
-                                      oc.subject === c.subject &&
-                                      oc.courseNumber === c.courseNumber
-                              )
+                    // Remove the course to be deleted
+                    const updatedCourses = term.courses.filter(
+                        c =>
+                            !(
+                                c.subject === subject &&
+                                c.courseNumber === courseNumber
+                            )
                     );
 
                     const updatedCredits = updatedCourses.reduce(
